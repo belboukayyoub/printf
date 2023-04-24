@@ -29,6 +29,44 @@ unsigned int print_string(char *s)
 
 
 /**
+ * format_printf - format string
+ * @args: input va_list
+ * @format: input string
+ * @i: input int
+ *
+ * Return: nbr of char printed
+ */
+unsigned int format_printf(va_list args, const char *format, unsigned int *i)
+{
+	unsigned int printed_char = 0;
+
+	if (format[*i + 1] == 'c')
+	{
+		_putchar(va_arg(args, int));
+		printed_char++;
+		(*i)++;
+	}
+	else if (format[*i + 1] == 's')
+	{
+		printed_char += print_string(va_arg(args, char *));
+		(*i)++;
+	}
+	else if (format[*i + 1] == '%')
+	{
+		_putchar('%');
+		printed_char++;
+		(*i)++;
+	}
+	else if (format[*i + 1] == '\0')
+		return (-1);
+	_putchar(format[*i]);
+	printed_char++;
+	return (printed_char);
+}
+
+
+
+/**
  * _printf - clone of printf
  *
  * @format: input string
@@ -51,22 +89,8 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			if (format[i + 1] == 'c')
-			{
-				_putchar(va_arg(args, int));
-				printed_char++;
-				i++;
-			}
-			else if (format[i + 1] == 's')
-			{
-				printed_char += print_string(va_arg(args, char *));
-				i++;
-			}
-			else if (format[i + 1] == '%')
-			{
-				_putchar('%');
-				printed_char++;
-			}
+			printed_char += format_printf(args, format, &i);
+
 		}
 		else
 		{
