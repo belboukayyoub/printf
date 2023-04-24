@@ -44,23 +44,24 @@ unsigned int format_printf(va_list args, const char *format, unsigned int *i)
 	{
 		_putchar(va_arg(args, int));
 		printed_char++;
-		(*i)++;
+		*i += 1;
 	}
 	else if (format[*i + 1] == 's')
 	{
 		printed_char += print_string(va_arg(args, char *));
-		(*i)++;
+		*i += 1;
 	}
 	else if (format[*i + 1] == '%')
 	{
 		_putchar('%');
 		printed_char++;
-		(*i)++;
+		*i += 1;
 	}
-	else if (format[*i + 1] == '\0')
-		return (-1);
-	_putchar(format[*i]);
-	printed_char++;
+	else
+	{
+		_putchar(format[*i]);
+		printed_char++;
+	}
 	return (printed_char);
 }
 
@@ -89,6 +90,9 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%')
 		{
+			if (format[i + 1] == '\0')
+				return (-1);
+
 			printed_char += format_printf(args, format, &i);
 
 		}
