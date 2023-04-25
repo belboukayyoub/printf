@@ -64,6 +64,11 @@ unsigned int print_integer(int num)
 	}
 	else
 		n = num;
+	if (n == 0)
+	{
+		_putchar('0');
+		return (1);
+	}
 
 	while (n > 0)
 	{
