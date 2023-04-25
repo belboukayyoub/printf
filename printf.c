@@ -1,6 +1,84 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stddef.h>
+#include <stdlib.h>
+
+/**
+ * _realloc - reallocates a memory block using malloc and free
+ *
+ * @ptr: pointer void
+ * @old_size: unsigned int
+ * @new_size: unsigned int
+ *
+ * Return: the newly allocated memory
+ */
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+{
+	char *p;
+	unsigned int i, tp = new_size;
+
+	if (old_size == new_size)
+		return (ptr);
+	if (ptr == NULL)
+		return (malloc(new_size));
+
+	if (new_size > old_size)
+		tp = old_size;
+
+	if (new_size == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+
+	p = malloc(new_size);
+
+	for (i = 0; i < tp; i++)
+	{
+		p[i] = ((char *)ptr)[i];
+	}
+	free(ptr);
+	return (p);
+}
+
+/**
+ * print_integer - prints an integer
+ * @n: intut int
+ *
+ * Return: nbr of chart printed
+ */
+
+unsigned int print_integer(int n)
+{
+	unsigned int i = 0, printed_char = 0, sign = 0;
+	char *digits = (char *)malloc(sizeof(char));
+
+	if (digits == NULL)
+		return (-1);
+
+	if (n < 0)
+	{
+		sign = 1;
+		printed_char++;
+		n *= -1;
+	}
+
+	while (n > 0)
+	{
+		digits[i++] = n % 10 + '0';
+		digits = (char *)_realloc(digits, i, i + 1);
+		n = n / 10;
+	}
+	if (sign)
+		_putchar('-');
+	while (i > 0)
+	{
+		_putchar(digits[--i]);
+		printed_char++;
+	}
+	free(digits);
+	return (printed_char);
+}
 
 /**
  * print_string - print a static string
@@ -27,7 +105,6 @@ unsigned int print_string(char *s)
 	return (printed_char);
 }
 
-
 /**
  * format_printf - format string
  * @args: input va_list
@@ -51,6 +128,11 @@ unsigned int format_printf(va_list args, const char *format, unsigned int *i)
 		printed_char += print_string(va_arg(args, char *));
 		*i += 1;
 	}
+	else if (format[*i + 1] == 'd' || format[*i + 1] == 'i') 
+	{
+		printed_char += print_integer(va_arg(args, int));
+		*i += 1;
+	}
 	else if (format[*i + 1] == '%')
 	{
 		_putchar('%');
@@ -64,8 +146,6 @@ unsigned int format_printf(va_list args, const char *format, unsigned int *i)
 	}
 	return (printed_char);
 }
-
-
 
 /**
  * _printf - clone of printf
