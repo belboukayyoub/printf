@@ -43,25 +43,27 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 /**
  * print_integer - prints an integer
- * @n: intut int
+ * @num: intut int
  *
  * Return: nbr of chart printed
  */
 
-unsigned int print_integer(int n)
+unsigned int print_integer(int num)
 {
-	unsigned int i = 0, printed_char = 0, sign = 0;
+	unsigned int i = 0, printed_char = 0, n;
 	char *digits = (char *)malloc(sizeof(char));
 
 	if (digits == NULL)
 		return (-1);
 
-	if (n < 0)
+	if (num < 0)
 	{
-		sign = 1;
+		_putchar('-');
 		printed_char++;
-		n *= -1;
+		n = num * (-1);
 	}
+	else
+		n = num;
 
 	while (n > 0)
 	{
@@ -69,8 +71,6 @@ unsigned int print_integer(int n)
 		digits = (char *)_realloc(digits, i, i + 1);
 		n = n / 10;
 	}
-	if (sign)
-		_putchar('-');
 	while (i > 0)
 	{
 		_putchar(digits[--i]);
@@ -128,7 +128,7 @@ unsigned int format_printf(va_list args, const char *format, unsigned int *i)
 		printed_char += print_string(va_arg(args, char *));
 		*i += 1;
 	}
-	else if (format[*i + 1] == 'd' || format[*i + 1] == 'i') 
+	else if (format[*i + 1] == 'd' || format[*i + 1] == 'i')
 	{
 		printed_char += print_integer(va_arg(args, int));
 		*i += 1;
