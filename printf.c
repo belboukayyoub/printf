@@ -85,14 +85,12 @@ int _printf(const char *format, ...)
 
 	va_start(args, format);
 
-
 	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] == '%')
 		{
 			if (format[i + 1] == '\0')
 				return (-1);
-
 			printed_char += format_printf(args, format, &i);
 
 		}
