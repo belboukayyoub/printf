@@ -29,13 +29,13 @@ unsigned int print_string(char *s)
 
 
 /**
-* format_printf - format string
-* @args: input va_list
-* @format: input string
-* @i: input int
-*
-* Return:  nbr of char printed
-*/
+ * format_printf - format string
+ * @args: input va_list
+ * @format: input string
+ * @i: input int
+ *
+ * Return: nbr of char printed
+ */
 unsigned int format_printf(va_list args, const char *format, unsigned int *i)
 {
 	unsigned int printed_char = 0;
@@ -68,12 +68,13 @@ unsigned int format_printf(va_list args, const char *format, unsigned int *i)
 
 
 /**
-* _printf - clone of printf
-*
-* @format: input string
-*
-* Return: nbr of char printed
-*/
+ * _printf - clone of printf
+ *
+ * @format: input string
+ *
+ * Return: nbr of char printed
+ */
+
 int _printf(const char *format, ...)
 {
 	unsigned int i, printed_char = 0;
@@ -90,7 +91,7 @@ int _printf(const char *format, ...)
 		{
 			if (format[i + 1] == '\0')
 				return (-1);
-		printed_char += format_printf(args, format, &i);
+			printed_char += format_printf(args, format, &i);
 
 		}
 		else
