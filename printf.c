@@ -12,38 +12,33 @@ unsigned int format_printf(va_list args, const char *format, unsigned int *i)
 {
 	unsigned int printed_char = 0;
 
-	if (format[*i + 1] == 'c')
+	switch (format[*i + 1])
 	{
-		_putchar(va_arg(args, int));
-		printed_char++;
-		*i += 1;
+		case 'c':
+			printed_char += _putchar(va_arg(args, int));
+			break;
+		case 's':
+			printed_char += print_string(va_arg(args, char *));
+		break;
+		case 'd':
+		case 'i':
+			printed_char += print_integer(va_arg(args, int));
+			break;
+		case 'b':
+		case 'o':
+			printed_char += print_base(va_arg(args, unsigned int),
+					(format[*i + 1] == 'b') ? 2 : 8);
+			break;
+		case '%':
+			_putchar('%');
+			printed_char++;
+			break;
+		default:
+			_putchar(format[*i]);
+			printed_char++;
+			*i -= 1;
 	}
-	else if (format[*i + 1] == 's')
-	{
-		printed_char += print_string(va_arg(args, char *));
-		*i += 1;
-	}
-	else if (format[*i + 1] == 'd' || format[*i + 1] == 'i')
-	{
-		printed_char += print_integer(va_arg(args, int));
-		*i += 1;
-	}
-	else if (format[*i + 1] == 'b')
-	{
-		printed_char += print_binary(va_arg(args, unsigned int));
-		*i += 1;
-	}
-	else if (format[*i + 1] == '%')
-	{
-		_putchar('%');
-		printed_char++;
-		*i += 1;
-	}
-	else
-	{
-		_putchar(format[*i]);
-		printed_char++;
-	}
+	*i += 1;
 	return (printed_char);
 }
 

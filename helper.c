@@ -70,14 +70,15 @@ unsigned int print_string(char *s)
 }
 
 /**
- * print_binary - prints a binary
+ * print_base - prints a number on base
  *
  * @n: input unsigned int
+ * @base: input int
  *
  * Return: nbr of char printed
  */
 
-unsigned int print_binary(unsigned int n)
+unsigned int print_base(unsigned int n, int base)
 {
 	unsigned int i = 0, printed_char = 0;
 	char *digits = (char *)malloc(sizeof(char));
@@ -91,9 +92,9 @@ unsigned int print_binary(unsigned int n)
 	}
 	while (n > 0)
 	{
-		digits[i++] = n % 2 + '0';
+		digits[i++] = n % base + '0';
 		digits = (char *)_realloc(digits, i, i + 1);
-		n = n / 2;
+		n = n / base;
 	}
 	while (i > 0)
 	{
