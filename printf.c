@@ -28,6 +28,11 @@ unsigned int format_printf(va_list args, const char *format, unsigned int *i)
 		printed_char += print_integer(va_arg(args, int));
 		*i += 1;
 	}
+	else if (format[*i + 1] == 'b')
+	{
+		printed_char += print_binary(va_arg(args, unsigned int));
+		*i += 1;
+	}
 	else if (format[*i + 1] == '%')
 	{
 		_putchar('%');
