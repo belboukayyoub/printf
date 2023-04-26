@@ -69,3 +69,32 @@ unsigned int print_string(char *s)
 	return (printed_char);
 }
 
+/**
+ * print_binary - prints a binary
+ *
+ * @n: input unsigned int
+ *
+ * Return: nbr of char printed
+ */
+
+unsigned int print_binary(unsigned int n)
+{
+	unsigned int i = 0, printed_char = 0;
+	char *digits = (char *)malloc(sizeof(char));
+
+	if (digits == NULL)
+		return (-1);
+	while (n > 0)
+	{
+		digits[i++] = n % 2 + '0';
+		digits = (char *)_realloc(digits, i, i + 1);
+		n = n / 2;
+	}
+	while (i > 0)
+	{
+		_putchar(digits[--i]);
+		printed_char++;
+	}
+	free(digits);
+	return (printed_char);
+}
