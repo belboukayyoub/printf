@@ -84,6 +84,11 @@ unsigned int print_binary(unsigned int n)
 
 	if (digits == NULL)
 		return (-1);
+	if (n == 0)
+	{
+		_putchar('0');
+		printed_char++;
+	}
 	while (n > 0)
 	{
 		digits[i++] = n % 2 + '0';
