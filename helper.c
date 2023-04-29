@@ -104,3 +104,44 @@ unsigned int print_base(unsigned int n, int base)
 	free(digits);
 	return (printed_char);
 }
+
+/**
+ * print_hexadecimal - prints a hexadecimal
+ *
+ * @n: input unsigned int
+ * @a: input int case specifier
+ *
+ * Return: nbr of char printed
+ */
+
+unsigned int print_hexadecimal(unsigned int n, int a)
+{
+	unsigned int i = 0, printed_char = 0;
+	char *digits = (char *)malloc(sizeof(char));
+
+	if (digits == NULL)
+		return (-1);
+	if (n == 0)
+	{
+		_putchar('0');
+		printed_char++;
+	}
+	while (n > 0)
+	{
+		if (n % 16 < 10)
+			digits[i++] = n % 16 + '0';
+		else
+		{
+			digits[i++] = (n % 16) - 10   + a;
+		}
+		digits = (char *)_realloc(digits, i, i + 1);
+		n = n / 16;
+	}
+	while (i > 0)
+	{
+		_putchar(digits[--i]);
+		printed_char++;
+	}
+	free(digits);
+	return (printed_char);
+}
