@@ -20,6 +20,9 @@ unsigned int format_printf(va_list args, const char *format, unsigned int *i)
 		case 's':
 			printed_char += print_string(va_arg(args, char *));
 		break;
+		case 'S':
+			printed_char += print_unprintable(va_arg(args, char *));
+			break;
 		case 'd':
 		case 'i':
 			printed_char += print_integer(va_arg(args, int));

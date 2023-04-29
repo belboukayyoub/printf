@@ -13,7 +13,8 @@ unsigned int print_string(char *s);
 unsigned int print_base(unsigned int n, int base);
 int _printf(const char *format, ...);
 unsigned int print_unsigned(unsigned int n);
-unsigned int print_hexadecimal(unsigned int n,int a);
+unsigned int print_hexadecimal(unsigned int n, int a);
+unsigned int print_unprintable(char *s);
 
 #endif
 

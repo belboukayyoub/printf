@@ -145,3 +145,40 @@ unsigned int print_hexadecimal(unsigned int n, int a)
 	free(digits);
 	return (printed_char);
 }
+
+
+/**
+ * print_unprintable - print a the unprintable as \x followed by the ASCII code
+ * value in hexadecimal.
+ *
+ * @s: input string
+ *
+ * Return: nbr of char printed
+ */
+unsigned int print_unprintable(char *s)
+{
+	unsigned int i, printed_char = 0;
+
+	if (s == NULL)
+	{
+		return (print_string("(null)"));
+	}
+
+	for (i = 0; s[i] != '\0'; i++)
+	{
+		if ((s[i] > 0  && s[i] < 32) || s[i] >= 127)
+		{
+			print_string("\\x");
+			if (s[i] < 15)
+				print_string("0");
+
+			printed_char += print_hexadecimal(s[i], 'A');
+		}
+		else
+		{
+			_putchar(s[i]);
+			printed_char++;
+		}
+	}
+	return (printed_char);
+}
