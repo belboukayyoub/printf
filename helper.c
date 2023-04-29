@@ -175,9 +175,9 @@ unsigned int print_unprintable(char *s)
 		}
 		else
 		{
-			print_string("\\x");
+			printed_char +=  print_string("\\x");
 			if (s[i] < 16)
-				print_string("0");
+				printed_char += print_string("0");
 			printed_char += print_hexadecimal(s[i], 'A');
 		}
 	}
