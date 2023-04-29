@@ -26,8 +26,14 @@ unsigned int format_printf(va_list args, const char *format, unsigned int *i)
 			break;
 		case 'b':
 		case 'o':
+		case 'u':
 			printed_char += print_base(va_arg(args, unsigned int),
-					(format[*i + 1] == 'b') ? 2 : 8);
+					(format[*i + 1] == 'b') ? 2 : (format[*i + 1] == 'o') ? 8 : 10);
+			break;
+		case 'x':
+		case 'X':
+			printed_char += print_hexadecimal(va_arg(args, unsigned int),
+					(format[*i + 1] == 'x') ? 'a' : 'A');
 			break;
 		case '%':
 			_putchar('%');
