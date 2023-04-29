@@ -168,18 +168,17 @@ unsigned int print_unprintable(char *s)
 	{
 		if (s[i] < 0)
 			s[i] *= -1;
-		if ((s[i] > 0  && s[i] < 32) || s[i] >= 127)
+		if (s[i] >= 32 && s[i] < 127)
+		{
+			_putchar(s[i]);
+			printed_char++;
+		}
+		else
 		{
 			print_string("\\x");
 			if (s[i] < 16)
 				print_string("0");
 			printed_char += print_hexadecimal(s[i], 'A');
-		
-		}
-		else
-		{
-			_putchar(s[i]);
-			printed_char++;
 		}
 	}
 	return (printed_char);
